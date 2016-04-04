@@ -1,5 +1,6 @@
 \documentclass[conference,compsoc]{IEEEtran}
 \usepackage{ifpdf}
+\usepackage{caption}
 \usepackage[pdftex]{graphicx}
 \usepackage[noadjust]{cite}
 \usepackage{amsmath}
@@ -7,6 +8,8 @@
 \usepackage{fixltx2e}
 \hyphenation{op-tical net-works semi-conduc-tor}
 \renewcommand{\citedash}{--}
+
+
 \begin{document}
 
 \title{Visual Dataflow Language for Small Robots Programming}
@@ -51,11 +54,9 @@ There is a large number of robotic constructor kits for learning the basics of r
 
 %Research-in-Progress Reports which should contain an abstract describing a problem of interest and particular goals of the research, a short description of related work with analysis of differences between the existing methods and the approach proposed by the author, a summary of results achieved and future work directions. The length of such papers should not exceed 6 pages.
 
-In SPbSU cybernetic laboratory are conducted a number of studies aimed at improving the tools for design and programming of embedded systems for small robot platforms (e.g. LEGO, TRIK) using block diagrams\cite{}. Goal of research paper is the development of novel extensible tool for programming all small robot platforms which discussed above in dataflow style. While dataflow approach is commonly used approach when each element is executing in separate thread or process. Our approach avoids it, because it brings a large overhead on target platforms, details presented in section~\ref{sec:lang}.
+In SPbSU cybernetic laboratory are conducted a number of studies aimed at improving the tools for design and programming of embedded systems for small robot platforms (e.g. LEGO, TRIK) using block diagrams\cite{}. Goal of research paper is the development of novel extensible tool for programming all small robot platforms which discussed above in dataflow style. While dataflow approach is commonly used approach when each element is executing in separate thread or process. Our approach avoids it, because it brings a large overhead on target platforms, details presented in section~\ref{sec:lang}. There are several commonly used robots controller architectures: Connell's Colony, Maes' Action-Selection, Arkin's Motor Schema, Rosenblatt's Distributed Architecture for Mobile Navigation, Brooks' Subsumption Architecture\cite{simpson2009toward}. DFLs are suitable for Brooks' Subsumption Architecture, his approach are commonly used\cite{banyasad2000visual,simpson2006mobile,posso2011process,proetzsch2007behaviour}. So, our approach also uses Brooks’ Subsumption Architecture as the fundamental concept used in the our DFVPL.
 
-
-The paper is organized as follows. An overview of robotics VPL and DFVPL is presented in section~\ref{sec:Overview}. A brief description of commonly used robots controller architectures is given in section~\ref{sec:architecture}. Then, description of our language are proposed in section~\ref{sec:lang}. Section~\ref{sec:robotControl} demonstrates typical robotic controller expressed in our language. Finally, the last section concludes the paper.
-
+The paper is organized as follows. An overview of robotics VPL and DFVPL is presented in section~\ref{sec:Overview}. A description of our language are proposed in section~\ref{sec:lang}. Section~\ref{sec:robotControl} demonstrates typical robotic controller expressed in our language. Direction of future research works is given in section~\ref{sec:Future}. Finally, the last section concludes the paper.
 
 
 \section{Overview and background}
@@ -67,22 +68,17 @@ To educational, for example, can be referred EV3 Software development environmen
 In the industry there are very popular general-purpose IDE LabVIEW from National Instruments with the DFVPL G, and programming environment Simulink developed by MathWorks for modeling different dynamic models or control systems. These software products offer to the users a huge range of models and libraries to create any control systems, test benches, real-time systems, using model-driven approach. In particular, LabVIEW provides opportunity programming small robots. Although there is known of LabVIEW usage for educational purposes\cite{1_gomez-de-gabriel_mandow_fernandez-lozano_garcia-cerezo_2011}, most of the time in the educational process is spent on the study of the medium itself, not algorithms and robotic approaches. It should be noted that these environments are distributed under the commercial license.
 
 Another example of an industrial system is the Microsoft Robotics Developer Studio (MSRDS)\cite{jackson2007microsoft}, which is free for academic use, and allow to easy create distributed robotic systems in terms of data flow, which components are represented as web services. MSRDS officially supports multiple robotic platforms, e.g., LEGO NXT\cite{kim2007programming}, for which, however, It does not support offline mode. MSRDS has the ability to integrate with  custom robotic platforms, but this environment is not supported in 2014.
- 
-There are a lot of research in this area, e.g., dissertation\cite{banyasad2000visual} describes a visual programming language in terms of extended machines Moore, \cite{simpson2008visual},\cite{posso2011process} describe visual $occam\mbox{-}\pi$ program editor and tools $Transterpreter$, and its usage in  swarm robotics control system. Article\cite{diprose2011ruru} describes DFVPL for beginners and environment, which provides a comfortable interface. But the technology has too weak functionality and requires significant improvements, and doesn't available for download.
 
-Based on the overview it is clear that no one of these environments is not suitable for programming TRIK in terms of data flows. At the same time closest to the desirable is TRIK Studio, as it is the only medium, which distributed with open source with a highly scalable architecture, that has the ability to extend itself by new VPL for robots and provides opportunity to reuse code base of "routine" operations such as the interaction with the robot.
+There are a lot of research in this area, e.g., dissertation\cite{banyasad2000visual} describes a visual programming language in terms of extended machines Moore, \cite{simpson2008visual},\cite{posso2011process} describe visual $occam\mbox{-}\pi$ program editor and tools $Transterpreter$, and its usage in swarm robotics control system. Article\cite{diprose2011ruru} describes DFVPL for beginners and environment, which provides a comfortable interface. But the technology has too weak functionality and requires significant improvements, and doesn't available for download.
 
-
-\section{Robots control architectures}
-\label{sec:architecture}
-%С выходом статьи Родни Брукса\cite{1_brooks_1986}, описывающей возможность декомпозировать задачу управления роботом горизонтально на уровни ответственности, стало возможно проще и эффективнее решать "составные" задачи управления, как, например, задачи телеоператорского контроля балансирующего робота с автоматическим избеганием столкновений с препятствиями. Языки потоков данных удачно подходят под эту модель, что подтверждают неоднократные публикации на эту тему: \cite{simpson2006mobile}, \cite{banyasad2000visual}, \cite{posso2011process}, \cite{proetzsch2007behaviour}. В этой модели, система управления представлена как набор уровней ответственности, которые отвечают за различные модели поведения робота и строятся последовательно. При этом, по очевидным причинам, упрощается масштабируемость системы и увеличивается ее отказоустойчивость.
-
-%	У архитектуры Брукса есть множество альтернатив, к примеру, <<Колония>> Джонотана Коннеля, архитектура <<выбора-действия>> Патти Мэйса, <<схема двигателя>> Рональда Аркина\cite{simpson2009toward}, модель управления для системы Телеробота\cite{albus1989nasa}. Однако среди упомянутых подходов, подход Брукса является наиболее популярным, поэтому основопологающей концепцией разрабатывамого языка было решено сделать поддержку именно его.
+Based on the overview it is clear that no one of these environments is not suitable for programming small robots in terms of data flows. At the same time closest to the desirable is TRIK Studio, as it is the only medium, which distributed with open source with a highly scalable architecture, that has the ability to extend itself by new VPL for robots and provides opportunity to reuse code base of "routine" operations such as the interaction with the robot.
 
 
-\section{Description of language}
+\section{Description of the language}
 \label{sec:lang}
-%Развитие модельно-ориентированного (\textit{DSM}) подхода\cite{koznov2008} позволило быстро создавать достаточно сложные визуальные языки программирования. Среда программирования TRIK Studio является примером системы, созданной с применением DSM-подхода на базе платформы QReal\cite{qrealMeta}\cite{kuzenkova2013qreal}. Основываясь на промышленном опыте разработчиков TRIK Studio, было решено создавать потоковый язык программирования роботов на базе платформы QReal. Первый прототип языка был создан в течение недели. На момент написания статьи язык и средства его поддержки находятся в активной разработке. Опишем некоторые особенности разрабатываемой технологии.
+Evolution of a domain-specific modeling (DSM) methodology allows to quickly create a fairly sophisticated visual programming languages\cite{DSM}.
+
+%Развитие модельно-ориентированного подхода\cite{koznov2008} позволило быстро создавать достаточно сложные визуальные языки программирования. Среда программирования TRIK Studio является примером системы, созданной с применением DSM-подхода на базе платформы QReal\cite{qrealMeta}\cite{kuzenkova2013qreal}. Основываясь на промышленном опыте разработчиков TRIK Studio, было решено создавать потоковый язык программирования роботов на базе платформы QReal. Первый прототип языка был создан в течение недели. На момент написания статьи язык и средства его поддержки находятся в активной разработке. Опишем некоторые особенности разрабатываемой технологии.
 
 %\begin{itemize}
 %\item Архитектура Брукса легко выражается средствами языка.

@@ -1,0 +1,165 @@
+
+
+@book{3_rollins,
+author={Rollins, Mark},
+title={Beginning LEGO Mindstorms EV3}
+}
+
+
+@misc{2_ros.org,
+url={http://www.ros.org/},
+urldate={2016-3-10},
+journal={Ros.org},
+year={2016}
+}
+
+@article{koznov2008,
+  title={Основы визуального моделирования},
+  author={Кознов, Дмитрий Владимирович},
+  journal={М.: Изд-во Интернетуниверситета информационных технологий, ИНТУИТ. ру, БИНОМ, Лаборатория знаний},
+  year={2008}
+}
+
+@inproceedings{kim2007programming,
+  title={Programming LEGO Mindstorms NXT with visual programming},
+  author={Kim, Seung Han and Jeon, Jae Wook},
+  booktitle={Control, Automation and Systems, 2007. ICCAS'07. International Conference on},
+  pages={2468--2472},
+  year={2007},
+  organization={IEEE}
+}
+
+@article{jackson2007microsoft,
+  title={Microsoft robotics studio: A technical introduction},
+  author={Jackson, Jared},
+  journal={Robotics \& Automation Magazine, IEEE},
+  volume={14},
+  number={4},
+  pages={82--87},
+  year={2007},
+  publisher={IEEE}
+}
+
+@article{qrealMeta,
+  title={Средства быстрой разработки предметно-ориентированных решений в metaCASE-средстве QReal},
+  author={Кузенкова, АС and Дерипаска, АО and Таран, КС and Подкопаев, АВ and Литвинов, ЮВ and Брыксин, ТА},
+  journal={Научно-технические ведомости СПбГПУ},
+  pages={142}
+}
+
+@inproceedings{kuzenkova2013qreal,
+  title={QReal DSM platform-An Environment for Creation of Specific Visual IDEs},
+  author={Kuzenkova, Anastasiia and Deripaska, Anna and Bryksin, Timofey and Litvinov, Yurii and Polyakov, Vladimir},
+  booktitle={ENASE 2013 --- Proceedings of the 8th International Conference on Evaluation of Novel Approaches to Software Engineering},
+  pages={205--211},
+  year={2013},
+  publisher={SciTePress},
+  address={Setubal, Portugal}
+}
+
+@inproceedings{kirsanov2014robotics,
+  title={Robotics reactive programming with F\#/Mono},
+  author={Kirsanov, Alexander and Kirilenko, Iakov and Melentyev, Kirill},
+  booktitle={Proceedings of the 10th Central and Eastern European Software Engineering Conference in Russia},
+  pages={16},
+  year={2014},
+  organization={ACM}
+}
+
+@book{albus1989nasa,
+  title={NASA/NBS standard reference model for telerobot control system architecture (NASREM)},
+  author={Albus, James Sacra and McCain, Harry G and Lumia, Ronald},
+  year={1989},
+  publisher={National Institute of Standards and Technology Gaithersburg, MD}
+}
+
+@inproceedings{simpson2009toward,
+  title={Toward Process Architectures for Behavioural Robotics.},
+  author={Simpson, Jonathan and Ritson, Carl G},
+  booktitle={CPA},
+  pages={375--386},
+  year={2009}
+}
+
+@article{simpson2006mobile,
+  title={Mobile robot control},
+  author={Simpson, Jonathan and Jacobsen, Christian L and Jadud, Matthew C},
+  journal={Communicating Process Architectures},
+  pages={225},
+  year={2006}
+}
+
+@incollection{proetzsch2007behaviour,
+  title={The behaviour-based control architecture iB2C for complex robotic systems},
+  author={Proetzsch, Martin and Luksch, Tobias and Berns, Karsten},
+  booktitle={KI 2007: Advances in Artificial Intelligence},
+  pages={494--497},
+  year={2007},
+  publisher={Springer}
+}
+
+@article{johnston2004advances,
+  title={Advances in dataflow programming languages},
+  author={Johnston, Wesley M and Hanna, JR and Millar, Richard J},
+  journal={ACM Computing Surveys (CSUR)},
+  volume={36},
+  number={1},
+  pages={1--34},
+  year={2004},
+  publisher={ACM}
+}
+
+@article{1_gomez-de-gabriel_mandow_fernandez-lozano_garcia-cerezo_2011,
+author={Gomez-de-Gabriel, Jesús M. and Mandow, Anthony and Fernandez-Lozano, Jesús and Garcia-Cerezo, Alfonso J.},
+title={Using LEGO NXT Mobile Robots With LabVIEW for Undergraduate Courses on Mechatronics},
+volume={54},
+DOI={10.1109/te.2010.2043359},
+number={1},
+journal={IEEE Trans. Educ.},
+year={2011},
+pages={41-47}
+}
+
+@article{1_brooks_1986,
+author={Brooks, R.},
+title={A robust layered control system for a mobile robot},
+volume={2},
+DOI={10.1109/jra.1986.1087032},
+number={1},
+journal={IEEE J. Robot. Automat.},
+year={1986},
+pages={14-23}
+}
+
+@article{banyasad2000visual,
+  title={A Visual Programming Environment for Autonomous Robots},
+  author={Banyasad, Omid},
+  year={2000},
+  publisher={Citeseer}
+}
+
+@inproceedings{simpson2008visual,
+  title={Visual Process-Oriented Programming for Robotics.},
+  author={Simpson, Jonathan and Jacobsen, Christian L},
+  booktitle={CPA},
+  pages={365--380},
+  year={2008}
+}
+
+@inproceedings{posso2011process,
+  title={Process-Oriented Subsumption Architectures in Swarm Robotic Systems.},
+  author={Posso, Jeremy C and Sampson, Adam T and Simpson, Jonathan and Timmis, Jon},
+  booktitle={CPA},
+  pages={303--316},
+  year={2011}
+}
+
+
+@inproceedings{diprose2011ruru,
+  title={Ruru: A spatial and interactive visual programming language for novice robot programming},
+  author={Diprose, James P and MacDonald, Bruce A and Hosking, John G},
+  booktitle={Visual Languages and Human-Centric Computing (VL/HCC), 2011 IEEE Symposium on},
+  pages={25--32},
+  year={2011},
+  organization={IEEE}
+}
