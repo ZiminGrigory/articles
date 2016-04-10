@@ -53,7 +53,7 @@ There is a large number of robotic constructor kits for learning the basics of r
 
 In SPbSU cybernetic laboratory are conducted a number of studies aimed at improving the tools for design and programming of embedded systems for small robot platforms (e.g. LEGO, TRIK) using block diagrams\cite{}. Goal of research paper is the development of novel extensible tool for programming all small robot platforms which discussed above in dataflow style. While dataflow approach is commonly used approach when each element is executing in separate thread or process. Our approach avoids it, because it brings a large overhead on target platforms, details presented in section~\ref{sec:lang}. There are several commonly used robots controller architectures: Connell's Colony, Maes' Action-Selection, Arkin's Motor Schema, Rosenblatt's Distributed Architecture for Mobile Navigation, Brooks' Subsumption Architecture\cite{simpson2009toward}. DFLs are suitable for Brooks' Subsumption Architecture, his approach are commonly used\cite{banyasad2000visual,simpson2006mobile,posso2011process,proetzsch2007behaviour}. So, our approach also uses Brooks’ Subsumption Architecture as the fundamental concept used in the our DFVPL.
 
-The paper is organized as follows. An overview of robotics VPL and DFVPL is presented in section~\ref{sec:Overview}. A description of our language are proposed in section~\ref{sec:lang}. Section~\ref{sec:example} demonstrates typical robotic controller expressed in our language. Direction of future research works is given in section~\ref{sec:Future}. Finally, the last section concludes the paper.
+The paper is organized as follows. An overview of robotics VPL and DFVPL is presented in section~\ref{sec:Overview}. A description of our language are proposed in section~\ref{sec:lang}. Section~\ref{sec:example} demonstrates typical robotic controller expressed in our language. Direction of future research works is given in section~\ref{sec:Conclusion}. Finally, the last section concludes the paper.
 
 
 \section{Overview and background}
@@ -175,13 +175,12 @@ The last thing we should remark here is the presence of $Fork$ block in our lang
 	\label{image:interpreter-interaction}
 \end{figure}
 
-\section{Future works}
-\label{sec:Future}
 
-\section{Conclusion}
-%На момент написания статьи был реализован прототип технологии програмирования роботов TRIK в терминах потоков данных. Система предоставляет возможность интерпретации диаграмм на двумерной имитационной модели робота и (в ближайшем будущем) генерации кода из диаграмм в текстовые языки, используемые для программирования TRIK (JavaScript, F\# и Kotlin). Также технология предоставляет поддержку архитектуры Брукса на уровне языка, что продемонстрировано в статье на примере операторского управления роботом с автоматическим избеганием столковений.
+\section{Conclusion and Discussion}
+\label{sec:Conclusion}
+In this work we presented the prototype of dataflow language for programming different robotic kits (LEGO MINDSTORMS NXT, LEGO MINDSTORMS EV3, TRIK). The system provides ability to interpret diagrams on 2D- an 3D-simulators and real robotic devices. Proposed an aproach for executing dataflow diagrams on embedded devices. The language implicitly supports control flow model for educational purposes. It is also convenient for expressing typical robotic controllers architectures which is demostrated on example.
 
-%Полученная система может рассматриваться как платформа для дальнейших научных исследований. К примеру, интересной представляется автоматическая генерации метамодели языка по спецификациям ПО промежуточного уровня на роботе (к примеру, ROS\footnote{http://www.ros.org/ [Дата обращения: 10 марта 2016]}). Другим направлением возможной работы является описание строгой семантики языка для применения различных формальных методов анализа программ, выраженных в нем.
+The implemented system can be regarded as a platform for future investigations. First of all autonomious mode of work will be implemented. That will be done through code generation into a number of textual languages aready supported by TRIK Studio (NXT OSEK C for Lego, bytecode for EV3, JavaScript, F\#\cite{kirsanov2014robotics} and Kotlin for TRIK). We are also interested in academical research. First of all a formal semantics of our language should be expressed for applying various formal methods of program analysis. Another branch of research will be directed into a DSM-branch, here we want to consider an ability of dynamic langiage metamodel generation from specifications of available modules of robotics middleware (like ROS\cite{quigley2009ros} or Player\cite{gerkey2003player}).
 
 \newpage
 \bibliography{IEEEbibl}
