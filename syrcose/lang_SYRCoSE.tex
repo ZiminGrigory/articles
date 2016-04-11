@@ -51,9 +51,6 @@ Robotic control programs have reactive nature: they transform data which is cont
 
 There is a large number of robotic constructor kits for learning the basics of robotics and cybernetics, such as LEGO MINDSTORMS\cite{legokit}, TRIK, ScratchDuino\cite{http://www.scratchduino.com/}. Modern programming languages that are used for programming those kits are based on the control flow model rather than on dataflow model. Control flow-based languages are good for solving scholar "toy" tasks, but may be inconvenient for programming more complex "real world" controllers that may be conveniently expresses on DFLs. The simple DFVPL may be considered as a useful step from educational VPLs to the programming languages that are used in unversities and industry. 
 
-
-%Research-in-Progress Reports which should contain an abstract describing a problem of interest and particular goals of the research, a short description of related work with analysis of differences between the existing methods and the approach proposed by the author, a summary of results achieved and future work directions. The length of such papers should not exceed 6 pages.
-
 In SPbSU cybernetic laboratory are conducted a number of studies aimed at improving the tools for design and programming of embedded systems for small robot platforms (e.g. LEGO, TRIK) using block diagrams\cite{}. Goal of research paper is the development of novel extensible tool for programming all small robot platforms which discussed above in dataflow style. While dataflow approach is commonly used approach when each element is executing in separate thread or process. Our approach avoids it, because it brings a large overhead on target platforms, details presented in section~\ref{sec:lang}. There are several commonly used robots controller architectures: Connell's Colony, Maes' Action-Selection, Arkin's Motor Schema, Rosenblatt's Distributed Architecture for Mobile Navigation, Brooks' Subsumption Architecture\cite{simpson2009toward}. DFLs are suitable for Brooks' Subsumption Architecture, his approach are commonly used\cite{banyasad2000visual,simpson2006mobile,posso2011process,proetzsch2007behaviour}. So, our approach also uses Brooks’ Subsumption Architecture as the fundamental concept used in the our DFVPL.
 
 The paper is organized as follows. An overview of robotics VPL and DFVPL is presented in section~\ref{sec:Overview}. A description of our language are proposed in section~\ref{sec:lang}. Section~\ref{sec:robotControl} demonstrates typical robotic controller expressed in our language. Direction of future research works is given in section~\ref{sec:Future}. Finally, the last section concludes the paper.
@@ -74,38 +71,114 @@ There are a lot of research in this area, e.g., dissertation\cite{banyasad2000vi
 Based on the overview it is clear that no one of these environments is not suitable for programming small robots in terms of data flows. At the same time closest to the desirable is TRIK Studio, as it is the only medium, which distributed with open source with a highly scalable architecture, that has the ability to extend itself by new VPL for robots and provides opportunity to reuse code base of "routine" operations such as the interaction with the robot.
 
 
-\section{Description of the language}
+
+\section{DFVPL}
 \label{sec:lang}
-Evolution of a domain-specific modeling (DSM) methodology allows to quickly create a fairly sophisticated visual programming languages\cite{DSM}.
+Evolution of a domain-specific modeling (DSM) methodology allows to quickly create a fairly sophisticated visual programming languages\cite{DSM}. TRIK Studio programming environment is an example of a system that was created using DSM-based approach on QReal platform\cite{qrealMeta, kuzenkova2013qreal}. Based on industrial experience of TRIK Studio developers, it had been decided to create the DFVPL based on QReal platform. We based our DFVPL on the several basic requirements.
 
-%Развитие модельно-ориентированного подхода\cite{koznov2008} позволило быстро создавать достаточно сложные визуальные языки программирования. Среда программирования TRIK Studio является примером системы, созданной с применением DSM-подхода на базе платформы QReal\cite{qrealMeta}\cite{kuzenkova2013qreal}. Основываясь на промышленном опыте разработчиков TRIK Studio, было решено создавать потоковый язык программирования роботов на базе платформы QReal. Первый прототип языка был создан в течение недели. На момент написания статьи язык и средства его поддержки находятся в активной разработке. Опишем некоторые особенности разрабатываемой технологии.
+\begin{itemize}
+\item Brooks’ Subsumption Architecture should easily be expressed by means of language.
+\item Robots behaviour diagram, as well as in TRIK Studio, should be have the opportunity to be interpreted on the two-dimensional simulation model of the robot or directly on robot via wi-fi.
+\item Interpretation  of robots behaviour diagram  should emulate data flow common model, avoiding the strategy "one thread per block", but provides ability to manually create threads.
+\end{itemize}
 
-%\begin{itemize}
-%\item Архитектура Брукса легко выражается средствами языка.
-%\item Диаграммы поведения роботов, так же как и в TRIK Studio, имеют возможность быть проинтерпретированными на двумерной имитационной модели робота. 
-%\item В ближайших планах стоит генерация диаграмм потоков данных в текстовые языки, используемые для программирования TRIK --- в первую очередь, JavaScript, F\#\cite{kirsanov2014robotics} и Kotlin.
-%\end{itemize}
 
-%\section*{Элементы языка}
-%Элементы языка можно разделить по назначению на несколько групп.
+\subsection{Description of the blocks}
+DFVPL block (element) is a entity which processes incoming on its channels data, and can emits result (or new data) on their output channels. Our DFVPL blocks can be divided into several groups.
 
-%\begin{itemize}
-%\item \textit{Элемент потока данных}. Связь, реализующая поток для передачи данных. 
-%\item \textit{Блоки управления приводами}. Блоки принимающие числовые значения, отвечающие за подачу импульсов на приводы (силовые моторы, сервомоторы и т.д.).
-%\item \textit{Блоки считывания данных с сенсоров}. Блоки, генерирующие соответствующие значения, которые подлежат дальнейшей обработке.
-%\item \textit{Блоки синхронизации и фильтрации}. Позволяют временно блокировать передачу данных, устанавливать количество наборов пропускаемых данных и время между отправками. 
-%\item \textit{Блоки поддержки устройств ввода}. Считывают данные с устройств операторского контроля (в данный момент поддержан только джойстик, в планах --- компьютерная мышь и клавиатура). 
-%\item \textit{Блоки рисования на экране}. Отвечают за векторное и растровое рисование на экране.
-%\item \textit{Блоки видеозрения}. Предоставляют доступ ко всем возможностям видеозрения контроллера TRIK.
-%\item \textit{Блоки взаимодействия между роботами}. Отвечают за групповую координацию роботов.
-%\item \textit{Блок текстового программирования}. Блок, позволяющий произвести обработку входных данных на текстовом языке (статически типизируемом диалекте Lua, поддержка которого <<унаследована>> от кодовой базы TRIK Studio). Чаще всего такой блок будет использоваться для задания математических операций над данными.
-%\item \textit{Блоки управляющих конструкций}. Включают циклы, условные развилки, множественный выбор, распараллеливание, подавление и ингибицию, блок <<Подпрограмма>> для переиспользования кода. Последние четыре блока обеспечивают поддержку архитектуры Брукса в языке.
+\begin{itemize}
+\item \textit{Control}. Blocks implementing design: conditions, loops, etc.
+\begin{itemize}
+\item \textit{Flow} implementing data transmission between others blocks (uses for connecting channels of blocks).
+\item \textit{Fork, EndFork}. Blocks provide ability to force threading works.
+\item \textit{RandomValue, ConstValue} Blocks are responsible for sending a random number or a predetermined value of any type.
+\item \textit{GetSetVariable}. Pseudo DF block, which set value for given variable or emit it.
+\item \textit{Loop, If, Switch}. These blocks implement common essence in DF style. \textit{Loop} is a custom entity which emitting the numbers or dummy data corresponding to predetermined settings. \textit{If} checks predetermined condition substituting variables by incoming data, and sends them to \textit{True} or \textit{False} channel. \textit{Switch} successively checks multiple conditions and if its evaluate as \textit{true} sends incoming data to corresponding channel.  	
+\item \textit{Function} Block, which allows to make the processing of the input data in text language (PL Lua\cite{lua}), its support inherited from the code base of TRIK Studio). Most often, this block will be used for specifying mathematical operations on data.
+\item \textit{FinalBlock} stops the execution of program, when receiving any data. 
+\item \textit{SubprogramCall} is used to take out repetitive blocks on a separate diagram, and then use it as one block for data processing.
+\item \textit{Wait} is simple block, which main goal is to delay data.
+\item \textit{DelayFilter} is the evolution of the previous block, which add condition filtering and checking the number of emitted data validated by condition.
+\end{itemize} 
+\item \textit{Drawing}. Blocks for drawing on robots display and on the floor.
+\begin{itemize}
+\item \textit{Pen} is initialization block for drawing a predetermined color marker on the floor.  It controls the lowering and raising of the marker
+\item \textit{PaintSettings} is block which used for define color of pen, background, width of the brush for drawing on robots display.
+\item \textit{ShapePainter, SmilePainter, Text} are used for drawing some shape or text or smile on robots display. 
+\item \textit{Clear} is block which clear robot display when receiving any data.
+\end{itemize} 
+\item \textit{Flow manipulation}. These elements provide opportunity to manipulate data which flow between blocks.
+\begin{itemize}
+\item \textit{InPort, OutPort}. Their purpose is the connecting incoming data to \textit{Subprogram} block and blocks which should received these data in it, and similarly from blocks in \textit{Subprogram} to output channels of \textit{Subprogram}. 
+\item \textit{Supressor, Inhibitor} block or substitute data which flow via \textit{Flow}. These blocks and \textit{SubprogramCall} block provide support for the Brooks' Subsumption Architecture. 
+\item \textit{Interflowing, Separator} provide opportunity to gather data from several \textit{Flows} into one and vice versa.
+\end{itemize} 
+\item \textit{Actions}. Blocks implements any actions which robot can make.
+\begin{itemize}
+\item \textit{Servo, Motors} process received data and send impulses to robot actuators.
+\item \textit{Encoders} block sets the number of motor revolutions, when receiving data, and continuously emits current number for corresponding channels.
+\item \textit{MessageToRobot, ReceiveMsg} responsible for the coordination of a group of robots. Sends data to specified robot via \textit{MessageToRobot}, and receive from any robots via \textit{ReceiveMsg}.
+\item \textit{Say, PlayTone, Led} responsible for managing of sound and LED lights.
+\item \textit{RemoveFile, WriteToFile} implement functions to working with files. \textit{WriteToFile} writes incoming data to specified file. \textit{RemoveFile} removes specified file or file which name it got from incoming data.
+\item \textit{InitCamera, DetectByVideo, StreamingNode} provide access to all opportunities of video vision of TRIK controller: detect different objects and send data corresponding to specified (by incoming data or manually) object, stream video.
+\item \textit{PortBlock} provides opportunities to write on some ports corresponding to robot device and emits data from it.
+\item \textit{Sensor} continuously emits data from specified sensor, e.g. infrared, light, etc.
+\item \textit{SystemCall} responsible for the command execution got from incoming data, e.g. "reboot" will reboot robot.
+\item \textit{Gamepad} reads data from the control device, e.g. gamepad, and emits it.
+\end{itemize} 
+\end{itemize} 
 
-%\end{itemize} 
 
-\section{Robot control system}
+One of the distinguishing features of our DFVPL is that some blocks are a single object on the diagram, and although it can be represented on the diagram in several places, only one of them works. It is modification of data flow paradigm which helps to work with our DFVPL as control flow VPL. For example figure~\ref{image:encoder} shows diagram with \textit{Motors, ConstValue, Encoders, Flows} where \textit{Encoders} block is presented twice. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=3.5in]{Encoders.png}
+	\caption{Block with many representations but only one of them can be active. a,b --- \textit{Encoders} c --- \textit{ConstValue} d --- \textit{Motors}}
+	\label{image:encoder}
+\end{figure}
+
+When interpretation started \textit{ConstValue} emits data to \textit{Motors} and \textit{Encoders} (a) emits number of motor revolutions. After "Some blocks" \textit{Encoders} (b) receiving some data, which reinitialized block, at that moment \textit{Encoders} (a) stop emitting data (implementation details discussed in section~\ref{sec:impl}).
+
+Let's describe some basic thing about our blocks. On figure~\ref{image:encoder} \textit{ConstValue} and \textit{Motors} have incoming and outgoing "arrows" to block, which are used to connect control flow data, e.g. \textit{Motors} emits data to control flow channel when handle incoming data, and \textit{ConstValue} emits its value when receive control flow data. On left, right and bottom side may be placed incoming and outgoing channels (points where \textit{Flows} may be pinned), which are signed when user edits block (see Figure~\ref{image:block}).
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=3.5in]{block.png}
+	\caption{Showing and editing of block.}
+	\label{image:block}
+\end{figure}
+Also block may contain field for text, e.g. on Figure~\ref{image:block} user wrote condition.
+
+
+
+These blocks are enough to control the robot and create varying complexity robot controllers, e.g. Figures~\ref{image:boxC},~\ref{image:box} show simple robot controller which control moving around box. Here we initialize some variables and regulate motors power based on the data continuously received from the infrared sensor. More complex, but typical robotic controller presented in section~\ref{sec:robotControl}. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=3.5in]{alongBoxCode.png}
+	\caption{Controller code for along box moving.}
+	\label{image:boxC}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=3.5in]{alongBoxModel.png}
+	\caption{Modelling of along box moving.}
+	\label{image:box}
+\end{figure}
+
+
+
+\subsection{Pseudo dataflow}
+The main direction of our language and programming tool is the small robots programming, so it was necessary to avoid the use of commonly used dataflow paradigm, when for each execution block created new thread or process. This method is perfect for larger and more complex robots equipped with powerful multi-core controllers. But for small robots linear increase in the number of blocks in the diagram will eventually reduce performance due to the overhead of thread- or process-switching.
+
+So, our dataflow idiom was implemented as pseudo parallelism (see details in section~\ref{sec:impl}). But it is also exist opportunity to manually manage threads with two blocks --- \textit{Fork, EndFork}.
+
+\section{Implementation details}	
+\label{sec:impl}
+
+\section{Robot control system}	
 \label{sec:robotControl}
-
 %Рассмотрим задачу управления движением робота при помощи джойстика, при условии, что робот сам избегает лобовых столкновений с припятствиями. Предполагается, что программа пишется для двухколесного мобильного робота, оборудованного спереди инфракрасными датчиками расстояния, для управления колесами используются силовые моторы.
 
 %Разобьем задачу на два уровня поведения. Первый будет отвечать за обслуживание запросов пользователя. Второй будет ответственен за избегание столкновений: если робот близок к столкновению, то он должен уклониться от препятствия вне зависимости от того, что нажимает пользователь на пульте. 
